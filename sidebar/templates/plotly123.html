@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+<title>Model Dev Tool</title>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js" type="text/javascript"></script>
+<link href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>
+<link href="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/css/bootstrap-multiselect.css" rel="stylesheet" type="text/css" />
+<script src="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/js/bootstrap-multiselect.js" type="text/javascript"></script>
+<link href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css"  rel="stylesheet" type="text/css" />
+<!-- Plotly.js -->
+<script src="https://d14fo0winaifog.cloudfront.net/plotly-basic.js"></script>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar navbar-default navbar-fixed-top">
+      <ul class="nav navbar-nav">
+      <a class="navbar-brand" href="#">
+        <img alt="Brand" height="50px" width ="150px" src= "{{ url_for('static',filename='c1_logo.png') }}" onclick="window.location.href='http://127.0.0.1:5000/bzrules'">
+      </a>
+    </ul>
+    <ul class="nav navbar-nav navbar-left">
+        <h1> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp Model Dev Data Visualization</h1>
+    </ul>
+    </div>
+  </div>
+</nav>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Subjectarea <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <form action="{{ url_for('show_tables') }}" method="POST">
+                  <div class="form-group">
+                    <div class="input-group">
+                        {% for val in subarealist %}
+                        <input type="radio" name="subjectarea" value='{{val}}'{% if search_key==val %}selected{% endif%}>{{val}}<br>
+                        {% endfor %}
+                        <button type="submit" class="btn btn-primary btn-sm">ok</button>
+                    </div>
+                  </div>
+            </form>
+            </ul>
+          </li>
+
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Fied Names <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <form action="{{ url_for('plotlyexample') }}" method=["GET","POST"]>
+                  <div class="form-group">
+                    <div class="input-group">
+                        {% for val in allfields1 %}
+                        <input type="radio" name='{{val}}' value='{{val}}'{% if search_key==val %}selected{% endif%}>{{val}}<br>
+                        {% endfor %}
+                        <button type="submit" class="btn btn-primary btn-sm">Render Graph</button>
+                    </div>
+                  </div>
+              </form>
+            </ul>
+          </li>
+
+</div><!-- /.navbar-collapse -->
+</div><!-- /.container-fluid -->
+</nav>
+</head>
+
+<body>
+
+<!-- Page Content -->
+
+
+
+
+<div class="col-lg-12">
+                      {% for id in ids %}
+                          <h3>{{id}}</h3>
+                          <div id="{{id}}"></div>
+                      {% endfor %}
+</div>
+        <!-- /#page-content-wrapper -->
+
+
+ <script type="text/javascript">
+    var graphs = {{graphJSON | safe}};
+    var ids = {{ids | safe}};
+    for(var i in graphs) {
+        Plotly.plot(ids[i], // the ID of the div, created above
+                    graphs[i].data,
+                    graphs[i].layout || {});
+    }
+</script>
+
+</body>
+</html>

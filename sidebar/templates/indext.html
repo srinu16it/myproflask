@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Commercial DQA</title>
+
+    <!-- Bootstrap Core JavaScript -->
+    <!-- <script src="C:/Users/goz544/Desktop/dqt/sidebar/static/js/bootstrap.min.js"></script> -->
+    <!-- <link rel= "stylesheet" type= "text/javascript" href= "{{ url_for('static',filename='js/bootstrap.min.js') }}"> -->
+    <!-- Bootstrap Core CSS -->
+    <!-- <link href="C:/Users/goz544/Desktop/dqt/sidebar/static/css/bootstrap.min.css" rel="stylesheet"> -->
+    <!-- <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/bootstrap.min.css') }}"> -->
+    <!-- Custom CSS -->
+    <!-- <link href="C:/Users/goz544/Desktop/dqt/sidebar/static/css/simple-sidebar.css" rel="stylesheet"> -->
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/simple-sidebar.css') }}">
+    <!-- Custom Jquery -->
+    <!-- <link href="C:/Users/goz544/Desktop/dqt/sidebar/static/js/jquery.min.js" rel="stylesheet"> -->
+    <!-- <link rel= "stylesheet" type= "text/javascript" href= "{{ url_for('static',filename='js/jquery.min.js') }}"> -->
+    <!-- jQuery -->
+    <!-- <script src="C:/Users/goz544/Desktop/dqt/sidebar/static/js/jquery.js"></script> -->
+    <!-- <script rel= "stylesheet" type= "text/javascript" src= "{{ url_for('static',filename='js/jquery.js') }}"></script> -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js" type="text/javascript"></script>
+    <!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>!-->
+       <link href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css"
+           rel="stylesheet" type="text/css" />
+       <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>
+       <link href="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/css/bootstrap-multiselect.css"
+           rel="stylesheet" type="text/css" />
+       <script src="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/js/bootstrap-multiselect.js"
+           type="text/javascript"></script>
+      <link href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css"
+         rel="stylesheet" type="text/css" />
+       <!-- <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}"> -->
+
+
+
+
+
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar navbar-default navbar-fixed-top">
+          <ul class="nav navbar-nav">
+          <a class="navbar-brand" href="#">
+            <img alt="Brand" height="50px" width ="150px" src= "{{ url_for('static',filename='c1_logo.png') }}" onclick="window.location.href='http://127.0.0.1:5000/bzrules'">
+          </a>
+        </ul>
+        <ul class="nav navbar-nav navbar-left">
+            <h1> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp Economic Capital Data Quality Assertion</h1>
+        </ul>
+        </div>
+      </div>
+    </nav>
+</head>
+<body style="overflow: scroll;">
+
+    <div id="wrapper" class="toggled">
+        <!-- Sidebar -->
+        <div  id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="http://127.0.0.1:5000/bzrules">
+                        Home
+                    </a>
+                </li>
+                <li>
+                   <a href="javascript:;" data-toggle="collapse" data-target="#demon"><i class="fa fa-fw fa-arrows-v"></i> Select Dataset <i class="fa fa-fw fa-caret-down"></i></a>
+                   <ul id="demon" class="collapse">
+                      <form action="{{ url_for('show_tables') }}" method="POST">
+                          <div class="form-group">
+                              <div class="input-group">
+                              {% for val in datasource %}
+                                  <div class="form-inline">
+                                    <div class="controls-row">
+                                      <label class="radio inline"  style="vertical-align: middle">
+                                          <input type="radio"  for="rdn" value='{{val}}' name="datasource" {% if search_key==val %}selected{% endif%}> &nbsp{{val}}<br>
+                                      </label>
+                                    </div>
+                               </div>
+                               {% endfor %} 
+                              <button type="submit" class="btn btn-primary btn-sm">Click to Display</button>
+                                </div>
+                              </div>
+                              </form>
+                        </ul>
+                  </li>
+                    <li>
+                       <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Overall Summary <i class="fa fa-fw fa-caret-down"></i></a>
+                       <ul id="demo" class="collapse">
+                          <!-- <form action="{{ url_for('show_tables') }}" method="POST"> -->
+                            <form action="{{ url_for('show_tables') }}" method=["GET","POST"]>
+                              <div class="form-group">
+                                  <div class="input-group">
+                                  {% for val in subarealist %}
+                                      <div class="form-inline">
+                                        <div class="controls-row">
+                                          <label class="radio inline"  style="vertical-align: middle">
+                                              <input type="radio"  for="rd1" value='{{val}}' name="subjectarea" {% if search_key==val %}selected{% endif%}> &nbsp{{val}}<br>
+                                          </label>
+                                        </div>
+                                   </div>
+                                   {% endfor %} 
+                                  <button type="submit" class="btn btn-primary btn-sm">Click to Display</button>
+                                    </div>
+                                  </div>
+                                  </form>
+                            </ul>
+                      </li>
+
+
+
+                  <li>
+                    <a href="javascript:;" data-toggle="collapse" data-target="#demo1"><i class="fa fa-fw fa-arrows-v"></i> Field level summary <i class="fa fa-fw fa-caret-down"></i></a>
+                    <ul id="demo1" class="collapse">
+                    <form action="{{ url_for('postfields') }}" method=["GET","POST"] url='{{ url_for('postfields') }}' id='filterForm'>
+                        <div class="form-group">
+                          <input type="checkbox" id="chkbox_select_all" name="chkbox_select_all" onClick="CheckAll();">Check All</input><br>
+                          <ul style="overflow-x: scroll;" >
+                          <div class="input-group" id="div_fieldList" name="div_fieldList">
+                            {% for val in allfields1 %}
+                             <div class="form-inline">
+                               <div class="controls-row">
+                                 <label class="checkbox-inline">
+                                   <input type="checkbox" name='{{val}}' value='{{val}}'{% if search_key==val %}selected{% endif%}>{{val}}<br>
+                                </label>
+                               </div>
+                             </div>
+                             {% endfor %}
+                             <!-- <button type="submit" class="btn btn-primary btn-sm" id='submitFilter' >Run/Execute</button> -->
+                             <input type="submit" class="btn btn-primary btn-sm" id='submitFilter' value='Run/Execute' ></input>
+                          </div>
+                        </ul>
+                        </div>
+                      </form>
+                  </ul>
+                </li>
+
+                <li>
+                  <a href="javascript:;" data-toggle="collapse" data-target="#demo2"><i class="fa fa-fw fa-arrows-v"></i> Data Visualisation<i class="fa fa-fw fa-caret-down"></i></a>
+                  <ul id="demo2" class="collapse">
+                  <form action="{{ url_for('pygalexample') }}" method=["GET","POST"]>
+                      <div class="form-group">
+                        <input type="checkbox" id="chkbox_select_all1" name="chkbox_select_all1" onClick="CheckAll1();">Check All</input><br>
+                        <ul style="overflow-x: scroll;" >
+                        <div class="input-group" id="div_fieldList1" name="div_fieldList1">
+                          {% for val in allfields1 %}
+                           <div class="form-inline">
+                             <div class="controls-row">
+                               <label class="checkbox-inline">
+                                 <input type="checkbox" name='{{val}}' value='{{val}}'{% if search_key==val %}selected{% endif%}>{{val}}<br>
+                              </label>
+                             </div>
+                           </div>
+                           {% endfor %}
+                           <button type="submit" class="btn btn-primary btn-sm">Render Graph</button>
+                        </div>
+                      </ul>
+                      </div>
+                    </form>
+                </ul>
+              </li>
+              <li>
+                <a href="#">Additions</a>
+              </li>
+
+              </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                      <div class="headerContainer">
+                          <a href="#menu-toggle" class="btn btn-default" id="menu-toggle"><img height="20px" width ="20px" src= "{{ url_for('static',filename='hamburgermenu.png') }}"></a>
+                      	</div>
+                        <h1>Data Quality Dimensions</h1>
+                        <p>Data quality is defined and measured along
+                              a number of different dimensions
+                              - Accuracy
+                              - Timeliness
+                              - Completeness
+                              - Currency
+                              - Consistency
+                              - Standards</p>
+                        <p>Business Rules initiative provides a great foundation for any data quality initiative</p>
+                        <hr/>
+                            <!-- <code> -->
+                            <div class="dataTable">
+                            <table>
+                            {% for  rule1 in bzrules1 %}
+                            {{ rule1|safe }}
+                            {% endfor %}
+                          </table>
+                        </div>
+
+
+                            <form action="{{ url_for('postfields') }}" method=["GET","POST"]>
+                            <div class="form-group">
+                                <div align="center" class="input-group">
+                                  <!--<link rel=stylesheet type=text/css href="C:/Users/goz544/Desktop/dqt/sidebar/static/style.css">!-->
+                                  <!-- {{all_counts |safe}} -->
+                                  <table class="tablesorter dataTable"
+                                  style= "background-color: #E8E8E8;
+                                  hover: background-color: #ffff99;
+                                  border: none;
+                                  border-bottom: 1px solid #C8C8C8;
+                                  border-collapse: collapse;
+                                  text-align:left;
+                                  padding: 10px;
+                                  margin-bottom: 40px;
+                                  font-size: 0.9em;
+                                  width: 100%" >
+                                    <thead id="dataHeader">
+                                    <th>Serial Num</th>
+                                  	<th>Field Name</th>
+                                    <th>Total rows</th>
+                                  	<th>Rows followrule</th>
+                                  	<th>Null rows</th>
+                                  	<th>Accuracy</th>
+                                  	<th>Completeness</th>
+                                    <th>Descriptive Statistics</th>
+                                    <th></th>
+                                    </thead>
+                                  	{% for item in all_counts %}
+                                  	<tr>
+                                  		<td>
+                                  			<div>{{loop.index}}</div>
+                                  		</td>
+                                  		<td>
+                                  			<div>{{item[0][0] | safe}}</div>
+                                  		</td>
+                                  		<td>
+                                  			<div>{{item[3][0] | safe}}</div>
+                                  		</td>
+                                  		<td>
+                                  			<div>{{item[4][0] | safe}}</div>
+                                  		</td>
+                                  		<td>
+                                  			<div>{{item[5][0] | safe}}</div>
+                                  		</td>
+                                  		<td>
+                                  			<div>{{item[6][0] | safe}}</div>
+                                  		</td>
+                                  		<td>
+                                  			<div>{{item[7][0] | safe}}</div>
+                                  		</td>
+                                      <td>
+                                        <div>{{item[8][0] | safe}}</div>
+                                      </td>
+                                  </tr>
+                                  {% endfor %} 
+                                  </table>
+                                </div>
+                            </div>
+                            </form>
+
+                  </div>
+            </div>
+          </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+
+<!-- Menu Toggle Script -->
+<script>
+$("#menu-toggle").click(function(e) {
+    e.preventDefault();
+    $("#wrapper").toggleClass("toggled");
+});
+</script>
+<!-- end of Menu Toggle Script -->
+
+
+
+<script >
+$( document ).ready(function()
+{
+  var showHeader;
+  showHeader = '{{showHeader}}';
+
+  ToggleHeader(showHeader);
+  //Filter();
+ });
+function CheckAll()
+{//Checks all checkboxes
+    if($('#chkbox_select_all').prop('checked') == true)
+    {
+      $("#div_fieldList :checkbox").prop('checked', true);
+    }
+    else
+    {
+      $("#div_fieldList :checkbox").prop('checked', false);
+    }
+}
+
+function CheckAll1()
+{//Checks all checkboxes
+    if($('#chkbox_select_all1').prop('checked') == true)
+    {
+      $("#div_fieldList1 :checkbox").prop('checked', true);
+    }
+    else
+    {
+      $("#div_fieldList1 :checkbox").prop('checked', false);
+    }
+}
+
+function ToggleHeader(showHeader)
+{
+  // alert(showHeader);
+  if(showHeader == 'true')
+  {
+    // $('#dataHeader').show();
+    $('.dataTable').show();
+    $("tr:even").css("background-color", "#eee");
+    $("tr:odd").css("background-color", "#fff");
+    $("tr:hover").css("background-color", "#ffff99");
+  }
+  else {
+    // $('#dataHeader').hide();
+    // alert('hide');
+    $('.dataTable').hide();
+  }
+}
+
+function Filter()
+{
+    var url = $('#filterForm').attr('url');
+    $('#submitFilter').click(function(){
+        $("#filterForm").ajaxSubmit({url: url, type: 'post'})
+    });
+}
+
+
+
+</script>
+
+</body>
+</html>
